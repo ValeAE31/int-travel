@@ -20,17 +20,21 @@ function renderCities(): void {
     const country = city.getCountry ? city.getCountry() || "" : "";
     const duration = city.getDurationDays() ? city.getDurationDays() : "";
     const notesText = city.getNotes ? String(city.getNotes() || "") : "";
+    const cost = city.getAccommodation().getCost() ? String(city.getAccommodation().getCost() || "") : "";
+    const nameAccomodation = city.getAccommodation().getName() ? String(city.getAccommodation().getName() || "") : "";
     const notesHtml = notesText
       ? notesText
       : '<span class="text-muted">Sin datos</span>';
     tr.innerHTML = `<td>
     <strong>${city.getName()}</strong>
     </td>
-    <td>${country}</td>
+    <td>${country}<span class="badge badge-primary">Primary</span></td>
     <td>${duration ? `${duration} días` : "—"}</td>
     <td>${dateFrom}</td>
     <td>${dateTo}</td>
-    <td>${notesHtml}</td>`;
+    <td>${notesHtml}</td>
+    <td>${cost}</td>
+    <td>${nameAccomodation}</td>`;
     citiesTbody.appendChild(tr);
   });
 }
@@ -47,7 +51,10 @@ function handleCityFormSubmit(e: SubmitEvent): void {
     .value;
   const notes = (document.getElementById("city-notes") as HTMLTextAreaElement)
     .value;
-
+  const cost = (document.getElementById("cost-accommodation") as HTMLTextAreaElement)
+    .value;
+  const nameAccomodation = (document.getElementById("name-accommodation") as HTMLTextAreaElement)
+    .value;
   const city = new City(
     name,
     country,
@@ -60,6 +67,7 @@ function handleCityFormSubmit(e: SubmitEvent): void {
     return;
   }
   if (!saveCity(city)) return;
+  city.setAccommodation(cost, nameAccomodation);
   showToast("Éxito", "Ciudad agregada", "success");
   renderCities();
   form?.reset();
