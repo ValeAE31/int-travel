@@ -1,9 +1,12 @@
+import type Accommodation from "../domain/accommodation.ts";
+import Accomodation from "../domain/accommodation.ts";
 class City {
   #cityName!: string;
   #country!: string;
   #dateFrom!: Date;
   #dateTo!: Date;
   #notes: string = "";
+  #accommodation: Accomodation =new Accomodation(0,"vacio");
 
   constructor(
     cityName: unknown,
@@ -19,11 +22,19 @@ class City {
     this.setDateTo(dateTo);
     this.setNotes(notes);
   }
-
+  setAccommodation(aCost:unknown, aName: unknown){
+    this.#accommodation.setCost(aCost);
+    this.#accommodation.setName(aName);
+  }
+  getAccommodation(): Accommodation{
+    return this.#accommodation;
+  }
   getCountry(): string {
     return this.#country;
   }
-
+  addAccommodation(accommodation: Accommodation){
+    this.#accommodation=accommodation;
+  }
   setCountry(country: unknown): void {
     if (country === null || country === undefined) {
       throw new Error("Country must be a string");
