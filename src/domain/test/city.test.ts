@@ -1,6 +1,6 @@
 import { describe, beforeEach, test, expect } from "vitest";
 import City, { calculateDurationDays } from "../city.ts";
-import Accommodation from "../accommodation.ts";
+
 
 function createCity(): City {
   return new City(

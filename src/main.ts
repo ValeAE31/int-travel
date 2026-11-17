@@ -22,10 +22,8 @@ function renderCities(): void {
     const notesText = city.getNotes ? String(city.getNotes() || "") : "";
     const cost = city.getAccommodation().getCost() ? String(city.getAccommodation().getCost() || "") : "";
     const nameAccomodation = city.getAccommodation().getName() ? String(city.getAccommodation().getName() || "") : "";
-    const notesHtml = notesText
-      ? notesText
-      : '<span class="text-muted">Sin datos</span>';
-    tr.innerHTML = `<td>
+    const notesHtml = notesText? notesText: '<span class="text-muted">Sin datos</span>';tr.innerHTML = 
+    `<td>
     <strong>${city.getName()}</strong>
     </td>
     <td>${country}<span class="badge badge-primary">Primary</span></td>
